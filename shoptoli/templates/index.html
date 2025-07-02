@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card %}
+
+{% block title %}Welcome to SHOPtoli{% endblock %}
+
+{% block content %}
+    <!-- Hero Banner Section -->
+    <div class="hero-banner">
+        <div class="hero-text">
+            <h1>Welcome to SHOPtoli</h1>
+            <p>Your premier destination for Google Pixel products.</p>
+        </div>
+    </div>
+
+    <!-- Top Products Section (remains the same) -->
+    <h2 class="section-title">Top Products</h2>
+    <div class="product-grid">
+        {% for product in products %}
+            {{ product_card(product) }} <!-- Use the macro -->
+        {% endfor %}
+    </div>
+{% endblock %}

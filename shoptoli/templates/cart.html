@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+    <h1>Your Shopping Cart</h1>
+    {% if cart_items %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ "{:,.0f}".format(item.product.price) }} UZS</td>
+                    <td>{{ "{:,.0f}".format(item.item_total) }} UZS</td>
+                    <td>
+                        <a href="{{ url_for('main.remove_from_cart', product_id=item.product.product_id) }}" class="btn btn-secondary">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="cart-total">
+            Grand Total: {{ "{:,.0f}".format(total) }} UZS
+        </div>
+
+        <div class="checkout-btn-container">
+            <a href="{{ url_for('main.checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+
+    {% else %}
+        <p>Your cart is empty.</p>
+        <a href="{{ url_for('main.products') }}" class="btn btn-primary">Start Shopping</a>
+    {% endif %}
+{% endblock %}

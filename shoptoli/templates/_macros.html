@@ -1,0 +1,15 @@
+<!-- shoptoli/templates/_macros.html -->
+
+{% macro product_card(product) %}
+<div class="product-card">
+    <div class="product-image-container">
+        <img src="{{ url_for('static', filename='images/' + product.image_file) }}" 
+             alt="{{ product.description }}">
+    </div>
+    <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ "{:,.0f}".format(product.price) }} UZS</p>
+        <a href="{{ url_for('main.add_to_cart', product_id=product.product_id) }}" class="btn btn-primary">Add to Cart</a>
+    </div>
+</div>
+{% endmacro %}

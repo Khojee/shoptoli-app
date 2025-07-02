@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SHOPtoli{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('main.index') }}" class="navbar-brand">
+            <img src="{{ url_for('static', filename='images/logo_peach.png') }}" alt="SHOPtoli Logo" class="navbar-logo">
+            <span>SHOPtoli</span>
+        </a>
+        <div class="navbar-links">
+            <a href="{{ url_for('main.index') }}">Home</a>
+            <a href="{{ url_for('main.products') }}">Products</a>
+            <a href="{{ url_for('main.cart') }}">Cart
+                {% if session.get('cart') %}
+                <span class="cart-count">({{ session['cart']|length }})</span>
+                {% endif %}
+            </a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.account') }}">My Account</a>
+                <a href="{{ url_for('main.logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('main.login') }}">Login</a>
+                <a href="{{ url_for('main.register') }}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

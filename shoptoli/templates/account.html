@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+    <h2>My Account</h2>
+    <p><strong>Name:</strong> {{ current_user.full_name }}</p>
+    <p><strong>Email:</strong> {{ current_user.email }}</p>
+
+    <hr style="margin: 2rem 0;">
+
+    <!-- Address Management Section -->
+    <h3>My Addresses</h3>
+    <div class="address-list" style="margin-bottom: 2rem;">
+        {% for address in current_user.customer.addresses %}
+            <div class="address-card" style="background-color: #fff; padding: 1rem; border-radius: 5px; margin-bottom: 1rem;">
+                <p>
+                    {{ address.street }}<br>
+                    {{ address.city }}, {{ address.region or '' }} {{ address.postal_code }}<br>
+                    {{ address.country }}
+                </p>
+            </div>
+        {% else %}
+            <p>You have not saved any addresses yet.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add New Address Form -->
+    <div class="form-container" style="margin: 2rem 0;">
+        <h4>Add a New Address</h4>
+        <form method="POST" action="{{ url_for('main.add_address') }}">
+            <div class="form-group">
+                <label for="street">Street Address</label>
+                <input type="text" id="street" name="street" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="region">State / Region</label>
+                <input type="text" id="region" name="region">
+            </div>
+            <div class="form-group">
+                <label for="postal_code">Postal Code</label>
+                <input type="text" id="postal_code" name="postal_code" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="" disabled selected>-- Select a Country --</option>
+                    {% for code, name in countries %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Address</button>
+        </form>
+    </div>
+
+    <hr style="margin: 2rem 0;">
+
+    <!-- Purchase History Section (no changes here) -->
+    <h3>My Purchase History</h3>
+    {% if orders %}
+        {% for order in orders %}
+            <div class="order-summary" style="background-color: #fff; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4>Placed on {{ order.order_date | localdatetime }}</h4>
+                <p><strong>Total:</strong> {{ "{:,.0f}".format(order.total_amount) }} UZS</p>
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ "{:,.0f}".format(item.unit_price) }} UZS</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You have not placed any orders yet.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    
+    {% if not addresses %}
+        <div class="flash-danger" style="padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem;">
+            You have no shipping addresses saved. Please <a href="{{ url_for('main.account') }}">add an address to your account</a> before proceeding.
+        </div>
+    {% else %}
+        <div class="checkout-container" style="display: flex; gap: 2rem;">
+            
+            <!-- Address Selection -->
+            <div class="address-selection" style="flex: 1;">
+                <h3>Select a Shipping Address</h3>
+                <form action="{{ url_for('main.place_order') }}" method="POST">
+                    {% for address in addresses %}
+                    <div class="address-option" style="background: #fff; padding: 1rem; margin-bottom: 1rem; border-radius: 5px;">
+                        <input type="radio" name="address_id" value="{{ address.address_id }}" id="addr-{{ address.address_id }}" required {% if loop.first %}checked{% endif %}>
+                        <label for="addr-{{ address.address_id }}">
+                            <strong>{{ address.street }}</strong><br>
+                            {{ address.city }}, {{ address.postal_code }}<br>
+                            {{ address.country }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.2rem;">Place Order</button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary" style="flex: 1; background: #fff; padding: 1.5rem; border-radius: 8px;">
+                <h3>Order Summary</h3>
+                <table class="cart-table">
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product.name }} (x{{ item.quantity }})</td>
+                            <td style="text-align: right;">{{ "{:,.0f}".format(item.item_total) }} UZS</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr style="font-weight: bold; font-size: 1.2rem;">
+                            <td>Total</td>
+                            <td style="text-align: right;">{{ "{:,.0f}".format(total) }} UZS</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

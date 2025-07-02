@@ -1,0 +1,319 @@
+/* --- Rose Gold Color Palette --- */
+:root {
+    --color-primary: #fdd9d2;  /* Light Rose Gold */
+    --color-secondary: #f8e6e4;/* Muted Rose */
+    --color-background: #f5f6f4; /* Off-white */
+    --color-accent: #b9936c;  /* A darker, more classic gold for accents */
+    --color-text: #5c524c;      /* Dark Brown/Grey for text */
+    --color-white: #ffffff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding-top: 80px; /* Space for fixed navbar */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 90%;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center; /* This vertically centers the text and logo */
+    gap: 10px; /* This adds a nice space between the logo and the text */
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+/* Style the logo itself */
+.navbar-logo {
+    height: 60px; /* Control the size of the logo by its height */
+    width: auto; /* Let the width adjust automatically to maintain aspect ratio */
+}
+
+.navbar-links a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: var(--color-accent);
+}
+
+/* --- Buttons --- */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: #a5815a;
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+}
+
+/* --- Product Cards --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* --- Product Cards (Updated) --- */
+.product-grid {
+    display: grid;
+    /* 
+      - On small screens, it defaults to 1 column.
+      - On screens wider than 500px, it becomes 2 columns.
+      - On screens wider than 768px, it becomes 3 columns.
+      - On screens wider than 1100px, it becomes 4 columns.
+    */
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem; /* A slightly smaller gap might look better */
+}
+
+/* For small tablets and larger phones */
+@media (min-width: 500px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* For tablets */
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* For desktops and larger screens */
+@media (min-width: 1100px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.product-card {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.product-image-container {
+    width: 100%;
+    padding-top: 100%; /* This creates a perfect square aspect ratio */
+    position: relative;
+    background-color: #f8f8f8; /* A light background for the image */
+}
+
+.product-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 'contain' fits the whole image without cropping */
+    padding: 1rem; /* Adds some space around the image */
+    box-sizing: border-box;
+}
+
+.product-info {
+    padding: 1rem; /* Reduced padding from 1.5rem */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+    justify-content: space-between;
+}
+
+.product-info h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    font-size: 1.1rem; /* Slightly smaller font for the name */
+    line-height: 1.3; /* A bit more space between lines if the name wraps */
+}
+
+.product-info .price {
+    font-size: 1.3rem; /* Slightly smaller font for the price */
+    font-weight: bold;
+    color: var(--color-accent);
+    margin: 0.75rem 0; /* Reduced margin */
+}
+
+/* --- Forms --- */
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* --- Flash Messages --- */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.flash-messages li {
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+.flash-success { background-color: #d4edda; color: #155724; }
+.flash-danger { background-color: #f8d7da; color: #721c24; }
+.flash-info { background-color: #d1ecf1; color: #0c5460; }
+
+/* --- Cart Table --- */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+.cart-table th, .cart-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-secondary);
+}
+.cart-table th {
+    background-color: var(--color-secondary);
+}
+.cart-total {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+.checkout-btn-container {
+    text-align: right;
+    margin-top: 1.5rem;
+}
+
+/* --- Hero Banner Styles --- */
+.hero-banner {
+    position: relative; /* Needed for positioning the text overlay */
+    height: 400px; /* Adjust this height as needed */
+    width: 100%;
+    background-image: url('../images/hero-banner.png'); /* The path to your image */
+    background-size: cover; /* This makes the image cover the entire div */
+    background-position: center; /* This centers the image in the div */
+    background-repeat: no-repeat;
+    border-radius: 10px; /* Optional: adds nice rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3rem; /* Space between banner and products */
+}
+
+/* This adds a semi-transparent overlay to make the text more readable */
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Black overlay with 30% opacity */
+    border-radius: 10px; /* Match the parent's border-radius */
+}
+
+.hero-text {
+    position: relative; /* To make sure text appears above the overlay */
+    color: var(--color-white); /* White text stands out on a dark overlay */
+    z-index: 2;
+    padding: 2rem;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to text */
+}
+
+.hero-text p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Section Title --- */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+}

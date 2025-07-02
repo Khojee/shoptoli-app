@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card %}
+
+{% block title %}All Products{% endblock %}
+
+{% block content %}
+    <h1 class="section-title">All Products</h1>
+    <div class="product-grid">
+        {% for product in products %}
+            {{ product_card(product) }} <!-- Use the macro -->
+        {% else %}
+            <p>No products found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
